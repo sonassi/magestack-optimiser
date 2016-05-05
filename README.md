@@ -1,2 +1,2 @@
-# magento-varnish
+# Magento Varnish
 Magento Varnish module
