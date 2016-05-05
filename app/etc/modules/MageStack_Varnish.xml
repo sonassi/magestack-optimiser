@@ -1,4 +1,11 @@
 <?xml version="1.0"?>
+<!--
+/*
+* @category    Module
+* @package     MageStack_Varnish
+* @copyright   Copyright (c) 2016 Sonassi
+*/
+-->
 <config>
     <modules>
         <MageStack_Varnish>
@@ -9,4 +16,4 @@
             </depends>
         </MageStack_Varnish>
     </modules>
-</config> 
+</config>

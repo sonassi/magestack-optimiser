@@ -1,3 +1,10 @@
+<!--
+/*
+* @category    Module
+* @package     MageStack_Varnish
+* @copyright   Copyright (c) 2016 Sonassi
+*/
+-->
 <config>
     <sections>
         <varnish translate="label" module="varnish">

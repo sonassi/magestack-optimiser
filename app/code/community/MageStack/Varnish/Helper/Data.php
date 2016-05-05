@@ -61,7 +61,6 @@ class MageStack_Varnish_Helper_Data extends Mage_Core_Helper_Abstract
     public function purgeProcess()
     {
         $urls = array_filter(array_unique(explode("\n", file_get_contents($this->_getPurgeListPath()))));
-        file_put_contents($this->_getPurgeListPath(), '');
 
         $varnishServers = $this->getVarnishServers();
         $errors = array();
@@ -71,23 +70,23 @@ class MageStack_Varnish_Helper_Data extends Mage_Core_Helper_Abstract
         $mh = curl_multi_init();
 
         foreach ((array)$varnishServers as $varnishServer) {
-          foreach (array('http', 'https') as $scheme) {
-            foreach ($urls as $url) {
-                $urlParts = parse_url($varnishServer);
-                $varnishUrl = $scheme . "://" . $urlParts['host'] . $url;
+            foreach (array('http', 'https') as $scheme) {
+                foreach ($urls as $url) {
+                    $urlParts = parse_url($varnishServer);
+                    $varnishUrl = $scheme . "://" . $urlParts['host'] . $url;
 
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $varnishUrl);
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PURGE');
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-                //curl_setopt($ch, CURLOPT_HTTPHEADER, array('Host: ' . $varnishServer));
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, $varnishUrl);
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PURGE');
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+                    //curl_setopt($ch, CURLOPT_HTTPHEADER, array('Host: ' . $varnishServer));
 
-                curl_multi_add_handle($mh, $ch);
-                $curlHandlers[] = $ch;
+                    curl_multi_add_handle($mh, $ch);
+                    $curlHandlers[] = $ch;
+                }
             }
-          }
         }
 
         do {
@@ -108,6 +107,9 @@ class MageStack_Varnish_Helper_Data extends Mage_Core_Helper_Abstract
             curl_close($ch);
         }
         curl_multi_close($mh);
+
+        if (!count($errors))
+            file_put_contents($this->_getPurgeListPath(), '');
 
         return $errors;
     }

@@ -1,8 +1,8 @@
 <?php
-
 /*
 * @category    Module
 * @package     MageStack_Varnish
+* @copyright   Copyright (c) 2016 Sonassi
 */
 
 class MageStack_Varnish_Block_System_Config_Form_Field_Exclusions extends Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract

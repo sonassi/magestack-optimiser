@@ -1,8 +1,8 @@
 <?php
-
 /*
 * @category    Module
 * @package     MageStack_Varnish
+* @copyright   Copyright (c) 2016 Sonassi
 */
 
 require_once('Mage/Adminhtml/controllers/CacheController.php');

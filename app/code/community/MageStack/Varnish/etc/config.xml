@@ -1,14 +1,15 @@
+<?xml version="1.0"?>
 <!--
 /*
 * @category    Module
 * @package     MageStack_Varnish
+* @copyright   Copyright (c) 2016 Sonassi
 */
 -->
-<?xml version="1.0"?>
 <config>
     <modules>
         <MageStack_Varnish>
-            <version>1.0.0</version>
+            <version>1.2.0</version>
         </MageStack_Varnish>
     </modules>
     <frontend>
@@ -23,9 +24,9 @@
         </routers>
         <layout>
             <updates>
-              <varnish module="MageStack_Varnish">
-                <file>varnish.xml</file>
-              </varnish>
+                <varnish module="MageStack_Varnish">
+                    <file>varnish.xml</file>
+                </varnish>
             </updates>
         </layout>
     </frontend>
@@ -38,7 +39,6 @@
         <models>
             <varnish>
                 <class>MageStack_Varnish_Model</class>
-                <resourceModel>varnish_mysql4</resourceModel>
             </varnish>
         </models>
         <helpers>
@@ -74,8 +74,6 @@
                     </varnish>
                 </observers>
             </application_clean_cache>
-            <!-- To check if category is in navigation to let admin users know that varnish cache needs
-            to be revalidated -->
             <catalog_category_save_commit_after>
                 <observers>
                     <varnish>
@@ -99,14 +97,6 @@
             </adminhtml>
         </routers>
     </admin>
-
-    <default>
-        <varnish>
-            <options>
-                <servers>http://lb1.i</servers>
-            </options>
-        </varnish>
-    </default>
 
     <adminhtml>
         <acl>
@@ -134,16 +124,24 @@
         </acl>
     </adminhtml>
 
-        <crontab>
-            <jobs>
-                <varnish>
-                    <schedule>
-                        <cron_expr>*/10 * * * *</cron_expr>
-                    </schedule>
-                    <run>
-                        <model>varnish/observer::cronBatchPurge</model>
-                    </run>
-                </varnish>
-            </jobs>
-        </crontab>
+    <crontab>
+        <jobs>
+            <varnish>
+                <schedule>
+                    <cron_expr>*/10 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>varnish/observer::cronBatchPurge</model>
+                </run>
+            </varnish>
+        </jobs>
+    </crontab>
+
+    <default>
+        <varnish>
+            <options>
+                <servers>http://lb1.i</servers>
+            </options>
+        </varnish>
+    </default>
 </config>

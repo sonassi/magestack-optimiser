@@ -1,8 +1,8 @@
 <?php
-
 /*
 * @category    Module
 * @package     MageStack_Varnish
+* @copyright   Copyright (c) 2016 Sonassi
 */
 
 class MageStack_Varnish_Helper_Cache extends Mage_Core_Helper_Abstract
