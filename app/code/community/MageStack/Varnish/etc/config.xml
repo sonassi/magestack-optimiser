@@ -1,0 +1,149 @@
+<!--
+/*
+* @category    Module
+* @package     MageStack_Varnish
+*/
+-->
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MageStack_Varnish>
+            <version>1.0.0</version>
+        </MageStack_Varnish>
+    </modules>
+    <frontend>
+        <routers>
+            <varnish>
+                <use>standard</use>
+                <args>
+                    <module>MageStack_Varnish</module>
+                    <frontName>varnish</frontName>
+                </args>
+            </varnish>
+        </routers>
+        <layout>
+            <updates>
+              <varnish module="MageStack_Varnish">
+                <file>varnish.xml</file>
+              </varnish>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <blocks>
+            <varnish>
+                <class>MageStack_Varnish_Block</class>
+            </varnish>
+        </blocks>
+        <models>
+            <varnish>
+                <class>MageStack_Varnish_Model</class>
+                <resourceModel>varnish_mysql4</resourceModel>
+            </varnish>
+        </models>
+        <helpers>
+            <varnish>
+                <class>MageStack_Varnish_Helper</class>
+            </varnish>
+        </helpers>
+        <cache>
+            <types>
+                <varnish translate="label,description" module="varnish">
+                    <label>Varnish</label>
+                    <description>Full page cache in Varnish</description>
+                    <tags></tags>
+                </varnish>
+            </types>
+        </cache>
+        <events>
+            <http_response_send_before>
+                <observers>
+                    <varnish>
+                        <type>singleton</type>
+                        <class>varnish/observer</class>
+                        <method>varnish</method>
+                    </varnish>
+                </observers>
+            </http_response_send_before>
+            <application_clean_cache>
+                <observers>
+                    <varnish>
+                        <type>singleton</type>
+                        <class>varnish/observer</class>
+                        <method>purgeCache</method>
+                    </varnish>
+                </observers>
+            </application_clean_cache>
+            <!-- To check if category is in navigation to let admin users know that varnish cache needs
+            to be revalidated -->
+            <catalog_category_save_commit_after>
+                <observers>
+                    <varnish>
+                        <type>singleton</type>
+                        <class>varnish/observer</class>
+                        <method>onCategorySave</method>
+                    </varnish>
+                </observers>
+            </catalog_category_save_commit_after>
+        </events>
+    </global>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <varnish before="Mage_Adminhtml">MageStack_Varnish</varnish>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <default>
+        <varnish>
+            <options>
+                <servers>http://lb1.i</servers>
+            </options>
+        </varnish>
+    </default>
+
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <varnish>
+                            <title>Varnish</title>
+                            <sort_order>10</sort_order>
+                        </varnish>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <varnish>
+                                            <title>Varnish Options</title>
+                                        </varnish>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+
+        <crontab>
+            <jobs>
+                <varnish>
+                    <schedule>
+                        <cron_expr>*/10 * * * *</cron_expr>
+                    </schedule>
+                    <run>
+                        <model>varnish/observer::cronBatchPurge</model>
+                    </run>
+                </varnish>
+            </jobs>
+        </crontab>
+</config>
