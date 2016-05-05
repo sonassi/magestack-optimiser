@@ -99,7 +99,7 @@ class MageStack_Varnish_Helper_Data extends Mage_Core_Helper_Abstract
 
             if (curl_errno($ch)) {
                 $errors[] = "Cannot purge url {$info['url']} due to error" . curl_error($ch);
-            } else if ($info['http_code'] != 200 && $info['http_code'] != 404) {
+            } else if ((int)$info['http_code'] && $info['http_code'] != 200 && $info['http_code'] != 404) {
                 $errors[] = "Cannot purge url {$info['url']}, http code: {$info['http_code']}";
             }
 
@@ -110,6 +110,8 @@ class MageStack_Varnish_Helper_Data extends Mage_Core_Helper_Abstract
 
         if (!count($errors))
             file_put_contents($this->_getPurgeListPath(), '');
+        else
+            Mage::throwException(implode("\n", $errors));
 
         return $errors;
     }
