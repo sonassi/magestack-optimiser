@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+/*
+* @category    Module
+* @package     MageStack_Optimiser
+* @copyright   Copyright (c) 2016 Sonassi
+*/
+-->
+<config>
+    <modules>
+        <MageStack_Optimiser>
+            <version>1.0.0</version>
+            <depends/>
+        </MageStack_Optimiser>
+    </modules>
+    <global>
+        <blocks>
+            <magestack_optimiser>
+                <class>MageStack_Optimiser_Block</class>
+            </magestack_optimiser>
+        </blocks>
+        <models>
+            <magestack_optimiser>
+                <class>MageStack_Optimiser_Model</class>
+            </magestack_optimiser>
+        </models>
+        <helpers>
+            <magestack_optimiser>
+                <class>MageStack_Optimiser_Helper</class>
+            </magestack_optimiser>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <MageStack_Optimiser before="Mage_Adminhtml">MageStack_Optimiser_Adminhtml</MageStack_Optimiser>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <magestack_optimiser>
+                    <file>magestack_optimiser.xml</file>
+                </magestack_optimiser>
+            </updates>
+        </layout>
+    </adminhtml>
+
+    <crontab>
+        <jobs>
+            <security_cron>
+                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
+                <run><model>magestack_optimiser/cron::checkSecurity</model></run>
+            </security_cron>
+        </jobs>
+    </crontab>
+</config>

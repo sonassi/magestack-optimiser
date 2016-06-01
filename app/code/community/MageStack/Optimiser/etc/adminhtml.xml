@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <menu>
+        <system>
+            <children>
+                <optimiser translate="title">
+                    <title>Optimiser</title>
+                    <sort_order>1</sort_order>
+                    <action>adminhtml/optimiser/index</action>
+                </optimiser>
+            </children>
+        </system>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <optimiser translate="title" module="magestack_optimiser">
+                                <title>MageStack Optimiser</title>
+                                <sort_order>1</sort_order>
+                            </optimiser>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

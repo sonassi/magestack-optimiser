@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conditions>
+    <item>
+        <key>store_caches</key>
+        <name>Enable all Store Caches</name>
+        <description>Production Magento stores should have caches enabled at all times. Caches should never be flushed/refreshed/disabled.</description>
+        <link>help/magento-management/cache-management</link>
+        <severity>high</severity>
+    </item>
+    <item>
+        <key>redis_cache</key>
+        <name>Redis Cache</name>
+        <description>The default Magento file-storage for cache is suitable for development use only. Production stores must use Redis.</description>
+        <link>help/magestack/installing-the-redis-magento-extension</link>
+        <severity>high</severity>
+    </item>
+    <item>
+        <key>store_logging</key>
+        <name>Store Logging</name>
+        <description>Unless store error logs are being read, they can cause unecessary bloat and performance overhead.</description>
+        <link>help/magento-management/controlling-store-logging</link>
+        <severity>normal</severity>
+    </item>
+    <item>
+        <key>customer_logging</key>
+        <name>Customer Logging</name>
+        <description>Customer logging powers the "Online Customers" section of the admin, but comes with a performance penalty.</description>
+        <link>help/magento-management/controlling-customer-logging</link>
+        <severity>normal</severity>
+    </item>
+    <item>
+        <key>top_nav_depth</key>
+        <name>Top Navigation Depth</name>
+        <description>Setting a maximum depth for the top navigation ensures all categories are not loaded on every page.</description>
+        <link>blog/quick-magento-performance-wins#top-navigation</link>
+        <severity>high</severity>
+    </item>
+    <item>
+        <key>profiler</key>
+        <name>Magento Profiler</name>
+        <description>The Magento profiler should never be used in a production environment. This should be disabled at all times.</description>
+        <severity>high</severity>
+    </item>
+    <item>
+        <key>flat_category</key>
+        <name>Flat Catalog Category</name>
+        <description>Enable this setting for considerably improved performance, note that the store should be tested after enabling.</description>
+        <severity>high</severity>
+    </item>
+    <item>
+        <key>flat_product</key>
+        <name>Flat Catalog Product</name>
+        <description>Enable this setting for considerably improved performance, note that the store should be tested after enabling.</description>
+        <severity>high</severity>
+    </item>
+</conditions>

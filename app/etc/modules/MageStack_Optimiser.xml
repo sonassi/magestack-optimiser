@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/*
+* @category    Module
+* @package     MageStack_Optimiser
+* @copyright   Copyright (c) 2016 Sonassi
+*/
+-->
+<config>
+    <modules>
+        <MageStack_Optimiser>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Adminhtml />
+            </depends>
+        </MageStack_Optimiser>
+    </modules>
+</config>
