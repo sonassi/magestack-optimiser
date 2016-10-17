@@ -14,14 +14,19 @@ class MageStack_Optimiser_Helper_Conditions extends MageStack_Optimiser_Helper_A
         if (!$condition)
             $condition = "value != {$value}";
 
-        $configs = $this->getReadConnection()->fetchAll("SELECT * FROM {$tableName} WHERE path = '{$path}' AND {$condition}");
+        $select = $this->getReadConnection()->select()
+            ->from(array('main_table' => $tableName))
+            ->where("path = '{$path}'")
+            ->where("{$condition}");
 
-        if (!count($configs))
+        $config = $this->getReadConnection()->fetchAll($select);
+
+        if (!count($config))
             return true;
 
         $result = array();
-        foreach ($configs as $data) {
-            $result[] = "Set to {$data['value']} on {$data['scope']} scope (Scope ID: {$data['scope_id']})";
+        foreach ($config as $data) {
+            $result[] = "{$path} set to {$data['value']} on {$data['scope']} scope (Scope ID: {$data['scope_id']})";
         }
 
         return $result;
@@ -35,6 +40,44 @@ class MageStack_Optimiser_Helper_Conditions extends MageStack_Optimiser_Helper_A
     public function flatProductCheck()
     {
         return $this->checkConfigValue(self::FLAT_PRODUCT_CONFIG, 1);
+    }
+
+    public function logCleaningCheck()
+    {
+        $cleanEnabled = $this->checkConfigValue(self::SYSTEM_LOG_CLEANENA, 1);
+        if ($cleanEnabled === true)
+            return $this->checkConfigValue(self::SYSTEM_LOG_CLEANDAY, 30);
+
+        return $cleanEnabled;
+    }
+
+    public function productListingsCheck()
+    {
+        $gridPerPage = $this->checkConfigValue(self::CATALOG_FRONT_GRPEP, 0, "(value > 16)");
+        if ($gridPerPage !== true)
+            return $gridPerPage;
+
+        $listPerPage = $this->checkConfigValue(self::CATALOG_FRONT_LIPEP, 0, "(value > 16)");
+        if ($listPerPage !== true)
+            return $listPerPage;
+
+        return $this->checkConfigValue(self::CATALOG_FRONT_ALOAL, 1);
+    }
+
+    public function indexesStatesCheck()
+    {
+        $indexCollection = Mage::getModel('index/process')->getCollection();
+
+        foreach ($indexCollection as $index) {
+
+            if (in_array($index->getIndexerCode(), $this->_allowedIndexes))
+                continue;
+
+            if ($index->getMode() == 'real_time')
+                return false;
+        }
+
+        return true;
     }
 
     public function storeCachesCheck()
@@ -57,6 +100,16 @@ class MageStack_Optimiser_Helper_Conditions extends MageStack_Optimiser_Helper_A
     public function redisCacheCheck()
     {
         return Mage::helper('core')->isModuleEnabled('Cm_RedisSession');
+    }
+
+    public function sonassiCatfixCheck()
+    {
+        return Mage::helper('core')->isModuleEnabled('Sonassi_CatFix');
+    }
+
+    public function varnishCacheCheck()
+    {
+        return Mage::helper('core')->isModuleEnabled('MageStack_Varnish');
     }
 
     public function storeLoggingCheck()

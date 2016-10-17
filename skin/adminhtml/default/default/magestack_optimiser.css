@@ -1,0 +1,47 @@
+/*
+* @category    Module
+* @package     MageStack_Optimiser
+* @copyright   Copyright (c) 2016 Sonassi
+*/
+
+.optimiser { position: relative; }
+.optimiser .content-header { border-width: 1px; }
+.optimiser .content-header h3 { color: #555; font-size: 25px; text-transform: uppercase; margin: 0.3em 0.5em 10px 0; }
+.optimiser .totals { position: absolute; right: 0; top: 10px; font-size: 25px; }
+.optimiser-conditions a { color: #237BCE;  text-decoration: none; }
+.optimiser-conditions a:hover { text-decoration: underline; }
+.optimiser-conditions li { box-sizing: border-box; position: relative; width: 50%; min-height: 70px; float: left; padding: 15px 35px 15px 50px; margin-bottom: 5px; border-bottom: 1px dotted #e0e0e0; color: #666; }
+.optimiser-conditions li:nth-child(2n) { margin-right: 0; }
+.optimiser-conditions li:nth-child(2n + 1) { clear: left; }
+
+.optimiser-conditions .circle:before { content: ' \25CF'; font-size: 60px; float: left; margin-left: -50px; }
+
+.optimiser-conditions li.item-valid .circle:before { color: #72C1B0; }
+.optimiser-conditions li.item-invalid .circle:before { color: #BF7272; }
+
+.optimiser-conditions .name { font-weight: bold; color: #444; font-size: 17px; letter-spacing: -0.02em; line-height: 1.15em; margin-bottom: 5px; }
+.optimiser-conditions .description { width: 60%; }
+
+.optimiser-conditions .severity { font-weight: bold; font-size: .9em; text-transform: uppercase }
+.optimiser-conditions .severity-high { color: #A84848; }
+.optimiser-conditions .severity-low { color: #9E7979; }
+
+.optimiser-conditions .details .title { text-decoration: underline; }
+
+.optimiser-conditions .buttons { position: absolute; right: 0px; top: 20%; }
+.optimiser-conditions li.item-valid .buttons { opacity: .6; }
+.optimiser-conditions .button {
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    color: #666;
+    padding: 5px 20px;
+    margin: 0 5px 5px;
+    border: 1px solid #dfdfdf;
+}
+
+.optimiser-conditions .button:hover {
+    text-decoration: underline;
+}
+.optimiser-conditions .button.button-resolve { color: #333333; background-color: #EFEFEF }

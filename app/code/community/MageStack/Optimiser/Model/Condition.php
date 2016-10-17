@@ -7,6 +7,8 @@
 
 class MageStack_Optimiser_Model_Condition extends Mage_Core_Model_Abstract
 {
+    protected $_severityScores = array('high' => 3, 'normal' => 2, 'low' => 1);
+
     public function getCallbackFunction($type = null)
     {
         $key = $this->getKey();
@@ -21,6 +23,8 @@ class MageStack_Optimiser_Model_Condition extends Mage_Core_Model_Abstract
     public function importFromItem($item)
     {
         $this->setData((array)$item);
+
+        $this->setSeverityScore($this->_severityScores[strtolower($this->getSeverity())]);
 
         if (!$this->getConditionCheck())
             return false;
@@ -37,7 +41,7 @@ class MageStack_Optimiser_Model_Condition extends Mage_Core_Model_Abstract
         $helper = Mage::helper('magestack_optimiser/conditions');
 
         if (!method_exists($helper, $functionName))
-            return -1;
+            return -2;
 
         return $helper->$functionName();
     }
@@ -61,8 +65,29 @@ class MageStack_Optimiser_Model_Condition extends Mage_Core_Model_Abstract
         return $helper->$functionName();
     }
 
+    public function getConfigPath()
+    {
+        return sprintf('magestack/condition/%s', $this->getKey());
+    }
+
+    public function getConfigValue()
+    {
+        return Mage::app()->getStore()->getConfig($this->getConfigPath());
+    }
+
+    public function setConfigValue($value)
+    {
+        return Mage::getConfig()->saveConfig($this->getConfigPath(), $value, 'default', 0);
+    }
+
     public function isSatisfied()
     {
-        return $this->getConditionCheck() == 1;
+        $conditionCheck = $this->getConditionCheck();
+        if ($conditionCheck === -2) {
+            $configValue = $this->getConfigValue();
+            return $configValue == 1 ? 1 : 0;
+        }
+
+        return $conditionCheck == 1 ? 1 : -1;
     }
 }

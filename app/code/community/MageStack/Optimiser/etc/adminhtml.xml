@@ -3,11 +3,28 @@
     <menu>
         <system>
             <children>
-                <optimiser translate="title">
-                    <title>Optimiser</title>
+                <magestack translate="title">
+                    <title>MageStack</title>
                     <sort_order>1</sort_order>
-                    <action>adminhtml/optimiser/index</action>
-                </optimiser>
+                    <children>
+                        <optimiser>
+                            <title>Optimiser</title>
+                            <sort_order>10</sort_order>
+                            <children>
+                                <srv translate="title">
+                                    <title>Server Response Time</title>
+                                    <sort_order>10</sort_order>
+                                    <action>adminhtml/optimiser/srv</action>
+                                </srv>
+                                <tlt translate="title">
+                                    <title>Total Load Time</title>
+                                    <sort_order>20</sort_order>
+                                    <action>adminhtml/optimiser/tlt</action>
+                                </tlt>
+                            </children>
+                        </optimiser>
+                    </children>
+                </magestack>
             </children>
         </system>
     </menu>
@@ -17,10 +34,10 @@
                 <children>
                     <system>
                         <children>
-                            <optimiser translate="title" module="magestack_optimiser">
-                                <title>MageStack Optimiser</title>
+                            <magestack translate="title" module="system">
+                                <title>MageStack</title>
                                 <sort_order>1</sort_order>
-                            </optimiser>
+                            </magestack>
                         </children>
                     </system>
                 </children>

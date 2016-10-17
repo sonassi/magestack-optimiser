@@ -1,56 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <conditions>
-    <item>
-        <key>store_caches</key>
-        <name>Enable all Store Caches</name>
-        <description>Production Magento stores should have caches enabled at all times. Caches should never be flushed/refreshed/disabled.</description>
-        <link>help/magento-management/cache-management</link>
-        <severity>high</severity>
-    </item>
-    <item>
-        <key>redis_cache</key>
-        <name>Redis Cache</name>
-        <description>The default Magento file-storage for cache is suitable for development use only. Production stores must use Redis.</description>
-        <link>help/magestack/installing-the-redis-magento-extension</link>
-        <severity>high</severity>
-    </item>
-    <item>
-        <key>store_logging</key>
-        <name>Store Logging</name>
-        <description>Unless store error logs are being read, they can cause unecessary bloat and performance overhead.</description>
-        <link>help/magento-management/controlling-store-logging</link>
-        <severity>normal</severity>
-    </item>
-    <item>
-        <key>customer_logging</key>
-        <name>Customer Logging</name>
-        <description>Customer logging powers the "Online Customers" section of the admin, but comes with a performance penalty.</description>
-        <link>help/magento-management/controlling-customer-logging</link>
-        <severity>normal</severity>
-    </item>
-    <item>
-        <key>top_nav_depth</key>
-        <name>Top Navigation Depth</name>
-        <description>Setting a maximum depth for the top navigation ensures all categories are not loaded on every page.</description>
-        <link>blog/quick-magento-performance-wins#top-navigation</link>
-        <severity>high</severity>
-    </item>
-    <item>
-        <key>profiler</key>
-        <name>Magento Profiler</name>
-        <description>The Magento profiler should never be used in a production environment. This should be disabled at all times.</description>
-        <severity>high</severity>
-    </item>
-    <item>
-        <key>flat_category</key>
-        <name>Flat Catalog Category</name>
-        <description>Enable this setting for considerably improved performance, note that the store should be tested after enabling.</description>
-        <severity>high</severity>
-    </item>
-    <item>
-        <key>flat_product</key>
-        <name>Flat Catalog Product</name>
-        <description>Enable this setting for considerably improved performance, note that the store should be tested after enabling.</description>
-        <severity>high</severity>
-    </item>
+    <srv title="Server Response Time">
+        <item>
+            <key>store_caches</key>
+            <name>Enable all Store Caches</name>
+            <description>Production Magento stores should have caches enabled at all times. Caches should never be flushed/refreshed/disabled.</description>
+            <link>help/magento-management/cache-management</link>
+            <severity>high</severity>
+        </item>
+        <item>
+            <key>redis_cache</key>
+            <name>Redis Cache</name>
+            <description>The default Magento file-storage for cache is suitable for development use only. Production stores must use Redis.</description>
+            <link>help/magestack/installing-the-redis-magento-extension</link>
+            <severity>high</severity>
+        </item>
+        <item>
+            <key>indexes_states</key>
+            <name>Index States</name>
+            <description>Production stores during high traffic campaigns should have all indexes correctly set. Read more for detailed information.</description>
+            <link>help/magento-management/index-management</link>
+            <severity>normal</severity>
+        </item>
+        <item>
+            <key>log_cleaning</key>
+            <name>Log Cleaning</name>
+            <description>Logs that are not rotated/cleaned can caused uncesseary usage, regular housekeeping can keep this under control.</description>
+            <severity>normal</severity>
+            <link>blog/magento-kb/speed-up-magento-product-import-export-and-general-via-the-database</link>
+        </item>
+        <item>
+            <key>product_listings</key>
+            <name>Product Listings</name>
+            <description>Product display should be set to 16 products or less for maximum performance</description>
+            <link>blog/quick-magento-performance-wins#product-grid</link>
+            <severity>high</severity>
+        </item>
+        <item>
+            <key>sonassi_catfix</key>
+            <name>Sonassi CatFix</name>
+            <description>This module helps improve performance for configurable products.</description>
+            <severity>high</severity>
+        </item>
+        <item>
+            <key>varnish_cache</key>
+            <name>MageStack Varnish</name>
+            <description>Whilst not helpful for improving performance, Varnish can dramatically reduce server resource utilisation.</description>
+            <link>help/magestack/implementing-varnish</link>
+            <severity>low</severity>
+        </item>
+        <item>
+            <key>store_housekeeping</key>
+            <name>Store Housekeeping</name>
+            <description>Clean Unused Stores, Modules, Categories and Products</description>
+            <severity>high</severity>
+        </item>
+        <item>
+            <key>cache_topnav</key>
+            <name>Cache Top Navigation</name>
+            <description>The top navigation defaults to unlimited categories, set a fixed limit to quickly improve performance.</description>
+            <link>blog/digging-deeper-for-magento-performance#top-navigation</link>
+            <severity>high</severity>
+        </item>
+        <item>
+            <key>improve_search</key>
+            <name>Improve Search</name>
+            <description>Change the search backend from MySQL to a high performance engine.</description>
+            <severity>high</severity>
+            <link>blog/digging-deeper-for-magento-performance#search-backend</link>
+        </item>
+        <item>
+            <key>disable_automated_tools</key>
+            <name>Disable Crawl Tools</name>
+            <description>Bots and crawl tools use valuable resources, limit/block them when in a peak traffic situation</description>
+            <severity>high</severity>
+            <link>blog/quick-magento-performance-wins#crawl-tools</link>
+        </item>
+        <item>
+            <key>store_logging</key>
+            <name>Store Logging</name>
+            <description>Unless store error logs are being read, they can cause unecessary bloat and performance overhead.</description>
+            <link>help/magento-management/controlling-store-logging</link>
+            <severity>normal</severity>
+        </item>
+        <item>
+            <key>customer_logging</key>
+            <name>Customer Logging</name>
+            <description>Customer logging powers the "Online Customers" section of the admin, but comes with a performance penalty.</description>
+            <link>help/magento-management/controlling-customer-logging</link>
+            <severity>normal</severity>
+        </item>
+        <item>
+            <key>top_nav_depth</key>
+            <name>Top Navigation Depth</name>
+            <description>Setting a maximum depth for the top navigation ensures all categories are not loaded on every page.</description>
+            <link>blog/quick-magento-performance-wins#top-navigation</link>
+            <severity>high</severity>
+        </item>
+        <item>
+            <key>profiler</key>
+            <name>Magento Profiler</name>
+            <description>The Magento profiler should never be used in a production environment. This should be disabled at all times.</description>
+            <severity>high</severity>
+        </item>
+        <item>
+            <key>flat_category</key>
+            <name>Flat Catalog Category</name>
+            <description>Enable this setting for considerably improved performance, note that the store should be tested after enabling.</description>
+            <severity>high</severity>
+        </item>
+        <item>
+            <key>flat_product</key>
+            <name>Flat Catalog Product</name>
+            <description>Enable this setting for considerably improved performance, note that the store should be tested after enabling.</description>
+            <severity>high</severity>
+        </item>
+    </srv>
+    <tlt title="Total Load Time">
+        <item>
+            <key>implement_cdn</key>
+            <name>Implement CDN</name>
+            <severity>normal</severity>
+        </item>
+        <item>
+            <key>improve_combine</key>
+            <name>Improve CSS/JS Combine</name>
+            <link>blog/advanced-total-load-time-improvements#combine</link>
+            <severity>normal</severity>
+        </item>
+        <item>
+            <key>optimise_images</key>
+            <name>Optimise Images</name>
+            <link>blog/quick-total-load-time-wins#optimise-images</link>
+            <severity>normal</severity>
+        </item>
+        <item>
+            <key>remove_external</key>
+            <name>Remove External Content</name>
+            <severity>normal</severity>
+        </item>
+        <item>
+            <key>reduce_404</key>
+            <name>Eliminate 404 errors</name>
+            <severity>normal</severity>
+        </item>
+    </tlt>
 </conditions>
