@@ -15,4 +15,6 @@ This module aims to assist Magento 1.x store owners with fast/easy store improve
          rsync -vPa magestack-optimiser/app/ app/
          rsync -vPa magestack-optimiser/skin/ skin/
 
- 1. Refresh your Magento configuration cache
+ 1. Refresh your Magento configuration, layout and block HTML cache
+
+ 1. From the Magento admin, visit `System > MageStack > Optimiser` and follow the on screen instructions
