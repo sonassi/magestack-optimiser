@@ -1,0 +1,88 @@
+<?php
+/*
+* @category    Module
+* @package     MageStack_Optimiser
+* @copyright   Copyright (c) 2016 Sonassi
+*/
+
+?>
+<div class="optimiser">
+    <div class="content-header optimiser-header">
+        <table cellspacing="0">
+            <tr>
+                <td style="<?php echo $this->getHeaderWidth() ?>"><?php echo $this->getHeaderHtml() ?></td>
+                <td class="form-buttons"><?php echo $this->getButtonsHtml() ?></td>
+            </tr>
+        </table>
+    </div>
+
+    <?php $conditions = $this->getConditions(); ?>
+
+    <div class="content-body optimiser-body">
+
+    <?php if (count($conditions)): ?>
+
+        <ul class="optimiser-conditions">
+
+            <?php $totals = array('count' => 0, 'valid' => 0, 'invalid' => 0); ?>
+            <?php foreach ($conditions as $condition): $status = $condition->isSatisfied(); $severity = $condition->getSeverity(); ?>
+
+                <?php $this->updateTotals($totals, $status); ?>
+                <li class="item item-<?php echo $status == 1 ? 'valid' : ($status == -1 ? 'invalid' : 'unknown'); ?>">
+
+                    <div class="circle"></div>
+                    <div class="name"><?php echo $condition->getName(); ?></div>
+                    <div class="description">
+                        <?php echo $condition->getDescription(); ?>
+                        <span class="severity severity-<?php echo $severity; ?>"><?php echo $this->__('Severity: %s', ucwords($severity)); ?></span>
+                    </div>
+
+                    <?php if ($status != 1): ?>
+                        <div class="buttons">
+                            <?php /*if ($condition->getLink()): ?>
+                                <a href="<?php echo $this->getConditionLink($condition); ?>" target="_blank" class="button button-more"><?php echo $this->__('Resolve Manually'); ?></a>
+                            <?php endif;*/ ?>
+
+                            <a href="<?php echo $this->getResolveUrl($condition, 1); ?>" class="button manual"
+                                onclick="return confirm('<?php echo $this->__('Are you sure you want to mark this issue as fixed ?'); ?>');">
+                                <?php echo $this->__('Mark as Resolved'); ?>
+                            </a>
+
+                            <?php if ($condition->hasConditionAction()): ?>
+                                <a href="<?php echo $this->getResolveUrl($condition); ?>" class="button button-resolve"><?php echo $this->__('Resolve Automatically'); ?></a>
+                            <?php endif; ?>
+                        </div>
+                        <?php if ($conditionCheck = $condition->getConditionCheck()): ?>
+                            <?php if(is_array($conditionCheck)): ?>
+                                <div class="details">
+                                    <span class="title"><?php echo $this->__('Details'); ?>:</span>
+                                    <?php echo implode("\r", $conditionCheck); ?>
+                                </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php elseif ($status == 1 && $condition->getConditionCheck() === -2): ?>
+                        <div class="buttons">
+                            <a href="<?php echo $this->getResolveUrl($condition, 0); ?>" class="button manual">
+                                <?php echo $this->__('Mark as Pending'); ?>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($condition->getLink()): ?>
+                        <a href="<?php echo $this->getConditionLink($condition); ?>" target="_blank" class="link"><?php echo $this->getConditionLink($condition); ?></a>
+                    <?php endif; ?>
+
+                </li>
+
+            <?php endforeach; ?>
+        </ul>
+
+        <?php echo $this->displayTotals($totals); ?>
+
+    <?php else: ?>
+
+        <ul class="messages"><li class="notice-msg"><ul><li><span><?php echo $this->__('No item has been found'); ?></span></li></ul></li></ul>
+
+    <?php endif; ?>
+    </div>
+</div>

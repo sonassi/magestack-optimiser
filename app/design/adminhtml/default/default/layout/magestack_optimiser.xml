@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/*
+* @category    Module
+* @package     MageStack_Optimiser
+* @copyright   Copyright (c) 2016 Sonassi
+*/
+-->
+<layout>
+
+    <adminhtml_optimiser_default>
+        <reference name="head">
+            <action method="addCss"><name>magestack_optimiser.css</name></action>
+        </reference>
+    </adminhtml_optimiser_default>
+
+    <adminhtml_optimiser_srv>
+        <update handle="adminhtml_optimiser_default" />
+        <reference name="content">
+            <block type="magestack_optimiser/adminhtml_srv" name="magestack_optimiser.list" template="magestack_optimiser/list.phtml"/>
+        </reference>
+    </adminhtml_optimiser_srv>
+
+    <adminhtml_optimiser_tlt>
+        <update handle="adminhtml_optimiser_default" />
+        <reference name="content">
+            <block type="magestack_optimiser/adminhtml_tlt" name="magestack_optimiser.list" template="magestack_optimiser/list.phtml"/>
+        </reference>
+    </adminhtml_optimiser_tlt>
+
+</layout>
