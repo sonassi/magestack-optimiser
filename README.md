@@ -8,7 +8,7 @@ This module aims to assist Magento 1.x store owners with fast/easy store improve
 
  1. Using `git`, clone the repository,
 
-         git clone git@github.com:sonassi/magestack-optimiser.git
+         git clone https://github.com/sonassi/magestack-optimiser
 
  1. Copy the respective files into your Magento installation
 
