@@ -34,7 +34,7 @@
                 <children>
                     <system>
                         <children>
-                            <magestack translate="title" module="system">
+                            <magestack translate="title" module="magestack_optimiser">
                                 <title>MageStack</title>
                                 <sort_order>1</sort_order>
                             </magestack>
